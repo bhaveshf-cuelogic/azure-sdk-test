@@ -1,0 +1,135 @@
+<div class="service">
+  <table border=1 width=100%>
+    <caption>MS-Azure is a cloud hosting platform just like AWS, Heroku. It has following services</caption>
+    <thead>
+      <th>Compute</th>
+      <th>Data Services</th>
+      <th>App Services</th>
+      <th>Network Services</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <ul>
+            <li>VM</li>
+            <li>Cloud Service</li>
+            <li>Websites</li>
+            <li>Mobile Service</li>
+            <li>Batch</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Storage</li>
+            <li>SQL Database</li>
+            <li>HD Insight</li>
+            <li>Cache</li>
+            <li>Backup</li>
+            <li>Site Recovery</li>
+            <li>Machine learning</li>
+            <li>StorSimple</li>
+            <li>DocDB</li>
+            <li>Azure Search</li>
+            <li>Data Factory</li>
+            <li>Stream Analytics</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Media Service</li>
+            <li>Service bus</li>
+            <li>Push Notification</li>
+            <li>Scheduler</li>
+            <li>BizTalk</li>
+            <li>Active Directory</li>
+            <li>CDN</li>
+            <li>API Management</li>
+            <li>Remote App</li>
+            <li>Automation</li>
+            <li>Multi-factor authentication</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Traffic Manager</li>
+            <li>Express Route</li>
+            <li>VNet (can be used with VM and Cloud services for now)</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="service">
+  <p><b>Location</b> : Its a geographical location where Azure datacentre exists. There are around 10 locations spreaded across the globe.</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "North Europe", "available_services" => "Compute, Storage, PersistentVMRole, HighMemory"}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Affinity Group</b> : Its a logical group created within a specified location to keep your services more nearer to each other. Associated cloud and storage services should be placed within an affinity group to minimize network latency. It is a logical name for a colocated set of compute and storage nodes.</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "groupname", "label" => "customlabel", "description" => "description", "location" => "Location.objs.to_s", "hosted_services" => "?", "storage_services" => "", "capabitlity" => "Compute, Storage"}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Cloud Service</b> : When you create an application and run it in Azure, the code and configuration together are called an Azure cloud service</p>
+  <pre class="code"><%= JSON.pretty_generate({"url" => "https://management.core.windows.net/<subscription-id>/services/hostedservices/<cloudservicename>", "name" => "cloudservicename", "label" => "cloudservicename", "description" => "", "location" => "", "affinity_group" => "", "status" => "Created", "date_created" => "", "date_modified" => "", "extended_properties" => {"ResourceGroup"=>"test-cservice", "ResourceLocation"=>"Southeast Asia"}, "default_winrm_certificate_thumbprint" => "", "virtual_machines" => {}, "deployment_name" => ""}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>StorageAccount</b> : Azure Storage includes three services: Blob storage, Table storage, and Queue storage. These services are included in every storage account. A storage account provides your unique namespace for working with blobs, queues, and tables. It also stores the VHDs for virtual machine & OS.</p>
+  <pre class="code"><%= JSON.pretty_generate({"url" => "https://management.core.windows.net/subscription_id/services/storageservices/storage_account_name", "name" => "storage_account_name", "description" => "custom_desc.", "location" => "location-name", "affinity_group" => "affinity-group-name", "label" => "custom-label", "status" => "Created", "endpoints" => ["http://testinng.blob.core.windows.net/", "http://testinng.queue.core.windows.net/", "http://testinng.table.core.windows.net/"], "geo_replication_enabled" => "true", "geo_primary_region" => "Southeast Asia", "status_of_primary" => "Available", "last_geo_failover_time" => "", "geo_secondary_region" => "East Asia", "status_of_secondary" => "Available", "creation_time" => "2014-11-10T06:19:34Z", "extended_properties" => [{:name =>"ResourceGroup", :value=>"Default-Storage-SoutheastAsia"}, {:name=>"ResourceLocation", :value=>"Southeast Asia"}]}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Container</b> : Its a container created inside a Storage which can further contain Blobs, Queues, Tables. Its analogus to Amazon S3's Bucket</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "groupname", "properties" => {"last_modified" => "Fri, 07 Nov 2014 11:49:46 GMT", "etag" => "\"0x8D1C8980FE400E3\"", "lease_status" => "unlocked", "lease_state" => "available"}, "meta_data" => {}, "public_access_level" => ""}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Blob</b> : Its used to store files, images, audio, video, unstructured data. It can be accessed under Storage > Container. Its 2 types are "Block BLOBs" & "Page BLOBs". Block blobs are optimized for streaming. Page blobs are optimized for random read/write operations and which provide the ability to write to a range of bytes in a blob. Any blob can be leased for exclusive write access. When a blob is leased, only calls that include the current lease ID can modify the blob or (for block blobs) its blocks.</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "user-given-name", "snapshot" => "", "properties" => {:last_modified=>"Mon, 10 Nov 2014 07:36:45 GMT", :etag=>"0x8D1CAD036705ADE", :lease_status=>"unlocked", :lease_state=>"available", :content_length=>12799, :content_type=>"application/octet-stream", :content_encoding=>"ASCII-8BIT", :content_language=>"", :content_md5=>"JRYzmXDXEIGVhfkHc66+Cg==", :cache_control=>"", :blob_type=>"BlockBlob"}, "metadata" => {}}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Queue</b> : Azure Queue storage is a service for storing large numbers of messages that can be accessed from anywhere in the world via authenticated calls using HTTP or HTTPS. A single queue message can be up to 64 KB in size, and a queue can contain millions of messages, up to the total capacity limit of a storage account. It can be accessed under Storage > Container</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "qu-name", "url" => "http://<storage-name>.queue.core.windows.net/<qu-name>", "metadata" => {}}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Table</b> : The Azure Table storage service stores large amounts of structured data. The service is a NoSQL datastore which accepts authenticated calls from inside and outside the Azure cloud. Azure tables are ideal for storing structured, non-relational data.</p>
+  <p><b>Entity</b> : Analogus to column of a table</p>
+  <pre class="code"><%= JSON.pretty_generate({"properties" => {"PartitionKey"=>"test-partition-key", "RowKey"=>"1", "Timestamp"=> "2014-11-12 07:50:12 UTC" }, "table" => "table-name", "etag" => "", "updated_at" => "2014-11-12 08:22:29 UTC"}) %></pre>
+  <p><b>Batch</b> : A collection of commands for a table which needs to be executed in bulk</p>
+</div>
+
+<div class="service">
+  <p><b>Message</b> : The Queue service stores messages that may be read by any client who has access to the storage account.</p>
+  <pre class="code"><%= JSON.pretty_generate({"id" => "7ffcfa8b-e3c5-4025-a727-310de5b84b4f", "insertion_time" => "Mon, 10 Nov 2014 10:27:22 GMT", "expiration_time" => "Mon, 17 Nov 2014 10:27:22 GMT", "dequeue_count" => "1", "message_text" => "ur-msg", "time_next_visible" => "Mon, 10 Nov 2014 13:14:56 GMT", "pop_receipt" => "AgAAAAMAAAAAAAAAfbh9Uuj8zwE="}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>SQL Database</b> : MS Azure provides you two options when hosting your SQL Server-based data: Azure SQL Database and SQL Server in Azure Virtual Machine.</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "e52h5jupzu", "administrator_login" => "test-sql-server", "location" => "East Asia", "feature_name" => "", "feature_value" => ""}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Virtual Machine</b> : An Azure virtual machine is a server in the cloud that you configure and maintain according to your needs.</p>
+  <pre class="code"><%= JSON.pretty_generate({"cloud_service_name" => "cloudservicename", "status" => "ReadyRole", "ipaddress" => "137.116.131.91", "vm_name" => "vm-name", "udp_endpoints" => [], "hostname" => "", "deployment_name" => "vm-name", "deployment_status" => "Running", "tcp_endpoints" => [{:name=>"SSH", :vip=>"137.116.131.91", :public_port=>"22", :local_port=>"22", :protocol=>"tcp", :direct_server_return=>"false"}], "role_size" => "Basic_A0", "image" => "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_1-LTS-amd64-server-20140927-en-us-30GB", "os_type" => "Linux", "disk_name" => "mydnstest-mydnstest-0-201411100638450366", "virtual_network_name" => "vnet-name-if-any", "availability_set_name" => "", "media_link" => "https://portalvhdsln5k3tr4qvqb.blob.core.windows.net/vhds/mydnstest-mydnstest-2014-11-10.vhd", "data_disks" => []}) %></pre>
+</div>
+All virtual machines in Azure are configured with at least two disks when you create the virtual machine – one is an operating system disk and the other is a temporary local disk, sometimes called a resource disk. The operating system disk is created from an image, and both the operating system disk and the image are actually virtual hard disks (VHDs) stored in an Azure storage account. Virtual machines also can have data disks, and those are also stored at VHDs.
+
+<div class="service">
+  <p><b>Virtual Machine Image</b> : Images are used in Azure to provide a new virtual machine with an operating system. An image might also have one or more data disks.</p>
+  <pre class="code"><%= JSON.pretty_generate({"os_type" => "Windows", "name" => "03f55de797f546a1b29d1b8d66be687a__Visual-Studio-14-Professional-CTP-14.0.22129.1-AzureSDK-2.4-WS2012R2", "category" => "Public", "locations" => "East Asia;Southeast Asia;Australia East"}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Virtual Machine Disk</b> : </p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "cloudservicename-vmname-0-201411100638450366", "attached" => true, "os_type" => "Linux", "image" => "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_1-LTS-amd64-server-20140927-en-us-30GB", "size" => "30"}) %></pre>
+</div>
+
+<div class="service">
+  <p><b>Virtual Network</b> : Virtual Network lets you provision and manage virtual private networks (VPNs) in Azure and, optionally, link the VPNs with your on-premises IT infrastructure to create hybrid and cross-premises solutions. With Virtual Network, IT administrators can control network topology, including configuration of DNS and IP address ranges.</p>
+  <pre class="code"><%= JSON.pretty_generate({"name" => "vnet-name", "state" => "Created", "id" => "7b75af12-07df-4547-888e-98c9855343e3", "address_space" => ["10.0.0.0/8"], "subnets" => [{:name=>"Subnet-1", :address_prefix=>"10.0.0.0/11"}], "dns_servers" => [], "affinity_group" => "affinity-group-name"}) %></pre>
+</div>

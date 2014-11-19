@@ -1,0 +1,402 @@
+<ul>
+  <li><a href="#base">Base Management</a></li>
+  <li><a href="#cloud">Cloud</a></li>
+  <li>
+    <a href="#storage">Storage</a>
+    <ul>
+      <li><a href="#blob">Blob</a></li>
+      <li><a href="#queue">Queue</a></li>
+      <li><a href="#table">Table</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#servicebus">Service Bus</a>
+    <ul>
+      <li><a href="">Queue</a></li>
+      <li><a href="">Topic</a></li>
+    </ul>
+  </li>
+  <li><a href="#sqldb">SQL Dbase</a></li>
+  <li>
+    <a href="#vm">Virtual Machine</a>
+    <ul>
+      <li><a href="#vmimage">VM Image</a></li>
+      <li><a href="#vmdisk">VM Disk</a></li>
+    </ul>
+  </li>
+  <li><a href="#vnet">Virtual Network</a></li>
+</ul>
+<div class="service" id="base">
+  <h4>Azure::BaseManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">list_locations</li>
+    <%#= Azure::BaseManagementService.new.list_locations %>
+
+    <li class="success">list_affinity_groups</li>
+    <%#= Azure::BaseManagementService.new.list_affinity_groups %>
+
+    <li class="success">get_affinity_group(name)</li>
+    <%#= Azure::BaseManagementService.new.get_affinity_group("affinity-group-name") %>
+
+    <li class="success">create_affinity_group("name", "location", "label", options = {:description => ""})</li>
+    <%#= Azure::BaseManagementService.new.create_affinity_group("name", "location", "label", options = {:description => ""}) %>
+
+    <li class="success">update_affinity_group(name, label, options{})</li>
+    <%#= Azure::BaseManagementService.new.update_affinity_group("name", "label", options = {:description => ""}) %>
+
+    <li class="success">delete_affinity_group(name)</li>
+    <%#= Azure::BaseManagementService.new.delete_affinity_group("affinity-group-name") %>
+  </ul>
+</div>
+
+<div class="service" id="cloud">
+  <h4>Azure::CloudServiceManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">create_cloud_service("name", options{})</li>
+    <%#= Azure::CloudServiceManagementService.new.create_cloud_service("name",{:location=>""}) %>
+
+    <li class="success">list_cloud_services</li>
+    <%#= Azure::CloudServiceManagementService.new.list_cloud_services %>
+
+    <li class="success">get_cloud_service("name")</li>
+    <%#= Azure::CloudServiceManagementService.new.get_cloud_service("name") %>
+
+    <li class="success">get_cloud_service_properties("name")</li>
+    <%#= Azure::CloudServiceManagementService.new.get_cloud_service_properties("name") %>
+
+    <li class="success">delete_cloud_service("cloud_service_name")</li>
+    <%#= Azure::CloudServiceManagementService.new.delete_cloud_service("name") %>
+
+    <li class="">delete_cloud_service_deployment("cloud_service_name")</li>
+    <li class="">upload_certificate("cloud_service_name", ssh{})</li>
+  </ul>
+</div>
+
+<div class="service" id="storage">
+  <h4>Azure::StorageManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">list_storage_accounts</li>
+    <%#= Azure::StorageManagementService.new.list_storage_accounts %>
+
+    <li class="success">get_storage_account(name)</li>
+    <%#= Azure::StorageManagementService.new.get_storage_account("name") %>
+
+    <li class="success">get_storage_account_properties(name)</li>
+    <%#= Azure::StorageManagementService.new.get_storage_account_properties("name").inspect %>
+
+    <li class="success">create_storage_account(name, options{})</li>
+    <%# Azure::StorageManagementService.new.create_storage_account("name", options{}) %>
+
+    <li class="success">update_storage_account(name, options{})</li>
+    <%#= Azure::StorageManagementService.new.update_storage_account("name",{:description => "desc."}) %>
+
+    <li class="success">delete_storage_account(name)</li>
+    <%#= Azure::StorageManagementService.new.delete_storage_account("name") %>
+  </ul>
+</div>
+
+<div class="service" id="blob">
+  <h4>Azure::BlobService.new</h4>
+  <p class="error">Note : First create a StorageAccount using StorageManagementService and copy its settings in Ruby code</p>
+  <ul class="methods">
+    <li class="success">list_containers(options{})</li>
+    <%#= Azure::BlobService.new.list_containers %>
+
+    <li class="success">create_container(name, options{})</li>
+    <%#= Azure::BlobService.new.create_container("name") %>
+
+    <li class="success">delete_container(name, options{})</li>
+    <%#= Azure::BlobService.new.delete_container("name") %>
+
+    <li class="success">get_container_properties(name, options{})</li>
+    <%#= Azure::BlobService.new.get_container_properties("name").inspect %>
+
+    <li class="success">get_container_metadata(name, options{})</li>
+    <%#= Azure::BlobService.new.get_container_metadata("name").inspect %>
+
+    <li class="success">set_container_metadata(name, metadata, options{})</li>
+    <%#= Azure::BlobService.new.set_container_metadata("name",{:key=>"value"}) %>
+
+    <li class="success">get_container_acl(name, options{})</li>
+    <%#= Azure::BlobService.new.get_container_acl("name") %>
+
+    <li class="success">set_container_acl(name, public_access_level, options{})</li>
+    <%#= Azure::BlobService.new.set_container_acl("name", "container") %>
+
+    <li class="success">list_blobs(container-name, options{})</li>
+    <%#= Azure::BlobService.new.list_blobs("container") %>
+
+    <li class="">create_page_blob(container, blob, length, options{})</li>
+    <li class="">create_blob_pages(container, blob, start_range, end_range, content, options{})</li>
+    <li class="">clear_blob_pages(container, blob, start_range, end_range, options{})</li>
+
+    <li class="success">create_block_blob(container, blob, content, options{})</li>
+    <%#= Azure::BlobService.new.create_block_blob(container, blob, content, options{}) %>
+
+    <li class="">create_blob_block(container, blob, block_id, content, options{})</li>
+    <li class="">commit_blob_blocks(container, blob, block_list, options{})</li>
+    <li class="">list_blob_blocks(container, blob, options{})</li>
+    <li class="">list_page_blob_ranges(container, blob, options{})</li>
+    <li class="success">get_blob_properties(container, blob, options{})</li>
+    <%#= Azure::BlobService.new.get_blob_properties("container-name","blob-name",{}) %>
+
+    <li class="error">set_blob_properties(container, blob, options{})</li>
+    <%#= Azure::BlobService.new.set_blob_properties("container-name","blob-name",{:content_language => "English"}) %>
+
+    <li class="success">get_blob_metadata(container, blob, options{})</li>
+    <%#= Azure::BlobService.new.get_blob_metadata("container-name","blob-name",{}) %>
+
+    <li class="success">set_blob_metadata(container, blob, metadata, options{})</li>
+    <%#= Azure::BlobService.new.set_blob_metadata("container-name","blob-name", {:author => "bhavesh"}) %>
+
+    <li class="success">get_blob(container, blob, options{}) - Download a blob</li>
+    <%#= Azure::BlobService.new.get_blob("container-name","blob-name") %>
+
+    <li class="success">delete_blob(container, blob, options{})</li>
+    <%#= Azure::BlobService.new.delete_blob("container-name","blob-name") %>
+
+    <li class="">create_blob_snapshot(container, blob, options{})</li>
+    <li class="success">copy_blob(destination_container, destination_blob, source_container, source_blob, options{})</li>
+    <%#= Azure::BlobService.new.copy_blob(destination_container, destination_blob, source_container, source_blob, options{}) %>
+
+    <li class="">acquire_lease(container, blob, options{})</li>
+    <li class="">renew_lease(container, blob, lease, options{})</li>
+    <li class="">release_lease(container, blob, lease, options{})</li>
+    <li class="">break_lease(container, blob, options{})</li>
+  </ul>
+</div>
+
+<div class="service" id="queue">
+  <h4>Azure::QueueService.new</h4>
+  <p class="error">Note : First create a StorageAccount using StorageManagementService and copy its settings in Ruby code</p>
+  <ul class="methods">
+    <li class="success">list_queues(options{})</li>
+    <%#= Azure::QueueService.new.list_queues %>
+
+    <li class="success">create_queue(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.create_queue("name") %>
+
+    <li class="success">delete_queue(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.delete_queue("name") %>
+
+    <li class="success">get_queue_metadata(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.get_queue_metadata("queue_name") %>
+
+    <li class="success">set_queue_metadata(queue_name, metadata, options{})</li>
+    <%#= Azure::QueueService.new.set_queue_metadata("queue_name",{},{}) %>
+
+    <li class="success">get_queue_acl(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.get_queue_acl("queue_name") %>
+
+    <li class="">set_queue_acl(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.set_queue_acl("queue_name") %>
+
+    <li class="success">create_message(queue_name, message_text, options{})</li>
+    <%#= Azure::QueueService.new.create_message("queue-name","my-msg") %>
+
+    <li class="">peek_messages(queue_name, options{})</li>
+
+    <li class="success">list_messages(queue_name, visibility_timeout, options{})</li>
+    <%#= Azure::QueueService.new.list_messages("queue-name", 100) %>
+
+    <li class="">update_message(queue_name, message_id, pop_receipt, message_text, visibility_timeout, options{})</li>
+
+    <li class="success">delete_message(queue_name, message_id, pop_receipt, options{})</li>
+    <%#= Azure::QueueService.new.delete_message("queue-name","fed07785-a4c1-42e8-a920-8408956a8d92", "AgAAAAMAAAAAAAAAqmQKvO38zwE=") %>
+
+    <li class="success">clear_messages(queue_name, options{})</li>
+    <%#= Azure::QueueService.new.clear_messages("queue_name") %>
+  </ul>
+</div>
+
+<div class="service" id="table">
+  <h4>Azure::TableService.new</h4>
+  <p class="error">Note : First create a StorageAccount using StorageManagementService and copy its settings in Ruby code</p>
+  <ul class="methods">
+    <li class="success">create_table(table_name, options{})</li>
+    <%#= Azure::TableService.new.create_table("testtable") %>
+
+    <li class="success">delete_table(table_name, options{})</li>
+    <%#= Azure::TableService.new.delete_table("testtable") %>
+
+    <li class="success">get_table(table_name, options{})</li>
+    <%#= Azure::TableService.new.get_table("testtable") %>
+
+    <li class="success">query_tables(options{})</li>
+    <%#= Azure::TableService.new.query_tables %>
+
+    <li class="success">get_table_acl(table_name, options{})</li>
+    <%#= Azure::TableService.new.get_table_acl %>
+
+    <li class="">set_table_acl(table_name, options{}) - Unable to find ACL data structure</li>
+    <%#= Azure::TableService.new.set_table_acl("testtable") %>
+
+    <li class="success">insert_entity(table_name, entity_values, options{})</li>
+    <%#= Azure::TableService.new.insert_entity("testtable",{:PartitionKey => "partition-key", :RowKey => "row-key", :content => "my-data"}) %>
+
+    <li class="success">query_entities(table_name, options{})</li>
+    <%#= Azure::TableService.new.query_entities("testtable", {:filter => "column_name eq 'data'"}) %>
+
+    <li class="success">update_entity(table_name, entity_values, options{}) - Replaces the entire entity. Can be used to remove properties</li>
+    <%#= Azure::TableService.new.update_entity("testtable",{"PartitionKey"=>"test-partition-key", "RowKey"=>"1"}) %>
+
+    <li class="success">merge_entity(table_name, entity_values, options{}) - Updates an existing entity by updating the entity's properties. Does not replace the existing entity</li>
+    <%#= Azure::TableService.new.merge_entity("testtable",{"PartitionKey" => "test-partition-key", "RowKey" => "1", "new_or_existing_column" => "new_value"}) %>
+
+    <li class="success">insert_or_merge_entity(table_name, entity_values, options{}) - Inserts or updates an existing entity within a table by merging new property values into the entity</li>
+    <%#= Azure::TableService.new.insert_or_merge_entity("testtable",{"PartitionKey"=>"test-partition-key", "RowKey"=>"2", "old_column" => "updated_value", "newcol" => "newvalue"}) %>
+
+    <li class="success">insert_or_replace_entity(table_name, entity_values, options{}) - Inserts or updates a new entity into a table. If existing key is not mentioned, it will be removed</li>
+    <%#= Azure::TableService.new.insert_or_replace_entity("testtable",{"PartitionKey"=>"test-partition-key", "RowKey"=>"2", "content" => "merged"}) %>
+
+    <li class="success">delete_entity(table_name, partition_key, row_key, options{})</li>
+    <%#= Azure::TableService.new.delete_entity("testtable","test-partition-key","1") %>
+
+    <li class="success">execute_batch(batch_object, options{}) - For more batch operations, view "batch.rb" file in sdk</li>
+    <%# batch = Azure::Table::Batch.new "table_name", "partition-key-name" do
+                 insert "rowkey", entity_values{}
+                 insert "rowkey", entity_values{}
+              end
+       Azure::TableService.new.execute_batch(batch)
+    %>
+    <li class="success">get_entity(table_name, partition_key, row_key, options{})</li>
+    <%#= Azure::TableService.new.get_entity("testtable","test-partition-key","2") %>
+  </ul>
+</div>
+
+<div class="service" id="servicebus">
+  <h4>Azure::ServiceBusService.new</h4>
+  <p class="error">Note : First create a <b>namespace</b> using portal</p>
+  <p class="error">Note : Unable to proceed because of <b>sb_access_key</b> & <b>sb_issuer</b> problem</p>
+  <ul class="methods">
+    <li class="">create_queue(queue, options{})</li>
+    <li class="">delete_queue(queue)</li>
+    <li class="">get_queue(queue)</li>
+    <li class="">list_queues(options{})</li>
+    <li class="">create_topic(topic, options{})</li>
+    <li class="">delete_topic(topic)</li>
+    <li class="">get_topic(topic)</li>
+    <li class="">list_topics(options{})</li>
+    <li class="">create_rule(*p)</li>
+    <li class="">delete_rule(*p)</li>
+    <li class="">get_rule(*p)</li>
+    <li class="">list_rules(*p)</li>
+    <li class="">create_subscription(*p)</li>
+    <li class="">delete_subscription(*p)</li>
+    <li class="">get_subscription(*p)</li>
+    <li class="">list_subscriptions(topic, options{})</li>
+    <li class="">send_topic_message(topic, message)</li>
+    <li class="">peek_lock_subscription_message(topic, subscription, options{})</li>
+    <li class="">unlock_subscription_message(message)</li>
+    <li class="">read_delete_subscription_message(topic, subscription, options{})</li>
+    <li class="">delete_subscription_message(message)</li>
+    <li class="">send_queue_message(queue, message)</li>
+    <li class="">peek_lock_queue_message(queue, options{})</li>
+    <li class="">unlock_queue_message(message)</li>
+    <li class="">read_delete_queue_message(queue, options{})</li>
+    <li class="">delete_queue_message(message)</li>
+    <li class="">receive_queue_message(queue, options{})</li>
+    <li class="">receive_subscription_message(topic, subscription, options{})</li>
+  </ul>
+</div>
+
+<div class="service" id="sqldb">
+  <h4>Azure::SqlDatabaseManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">create_server("login", "password", "location")</li>
+    <%#= Azure::SqlDatabaseManagementService.new.create_server("login","password","location") %>
+
+    <li class="success">list_servers</li>
+    <%#= Azure::SqlDatabaseManagementService.new.list_servers %>
+
+    <li class="success">reset_password("server-name", "new-password")</li>
+    <%#= Azure::SqlDatabaseManagementService.new.reset_password("server-name","new-password") %>
+
+    <li class="success">set_sql_server_firewall_rule("server-name", "rule-name", ip_range[])</li>
+    <%#= Azure::SqlDatabaseManagementService.new.set_sql_server_firewall_rule("server-name","rule-name",[]) %>
+
+    <li class="success">list_sql_server_firewall_rules("server-name")</li>
+    <%#= Azure::SqlDatabaseManagementService.new.list_sql_server_firewall_rules("server-name") %>
+
+    <li class="success">delete_sql_server_firewall_rule("server-name", "rule-name")</li>
+    <%#= Azure::SqlDatabaseManagementService.new.delete_sql_server_firewall_rule("server-name","rule-name") %>
+
+    <li class="success">delete_server("server-name")</li>
+    <%#= Azure::SqlDatabaseManagementService.new.delete_server("server-name") %>
+  </ul>
+</div>
+
+<div class="service" id="vm">
+  <h4>Azure::VirtualMachineManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">create_virtual_machine(params{},options{})</li>
+    <%#= Azure::VirtualMachineManagementService.new.create_virtual_machine(params{},options{}) %>
+
+    <li class="success">list_virtual_machines</li>
+    <%#= Azure::VirtualMachineManagementService.new.list_virtual_machines %>
+
+    <li class="success">get_virtual_machine("name","cloud_service_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new.get_virtual_machine("name",'cloud_service_name') %>
+
+    <li class="">add_role(params, options{})</li>
+    <%#= Azure::VirtualMachineManagementService.new %>
+
+    <li class="success">start_virtual_machine("vm_name", "cloud_service_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new.start_virtual_machine("vm_name","cloud_service_name") %>
+
+    <li class="success">shutdown_virtual_machine("vm_name", "cloud_service_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new.shutdown_virtual_machine("vm_name","cloud_service_name") %>
+
+    <li class="success">restart_virtual_machine("vm_name", "cloud_service_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new.restart_virtual_machine("vm_name","cloud_service_name") %>
+
+    <li class="success">delete_virtual_machine("vm_name", "cloud_service_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new.delete_virtual_machine("vm_name","cloud_service_name") %>
+
+    <li class="">update_endpoints("vm_name", "cloud_service_name", *input_endpoints)</li>
+    <%#= Azure::VirtualMachineManagementService.new %>
+
+    <li class="">delete_endpoint("vm_name", "cloud_service_name", "endpoint_name")</li>
+    <%#= Azure::VirtualMachineManagementService.new %>
+
+    <li class="success">add_data_disk("vm_name", "cloud_service_name", options{})</li>
+    <%#= Azure::VirtualMachineManagementService.new.add_data_disk("vm_name","cloud_service_name",options{}) %>
+
+  </ul>
+</div>
+
+<div class="service" id="vmimage">
+  <h4>Azure::VirtualMachineImageManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">list_virtual_machine_images</li>
+    <%#= Azure::VirtualMachineImageManagementService.new.list_virtual_machine_images %>
+  </ul>
+</div>
+
+<div class="service" id="vmdisk">
+  <h4>Azure::VirtualMachineImageManagement::VirtualMachineDiskManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">list_virtual_machine_disks</li>
+    <%#= Azure::VirtualMachineImageManagement::VirtualMachineDiskManagementService.new.list_virtual_machine_disks %>
+
+    <li class="success">get_virtual_machine_disk(disk_name)</li>
+    <%#= Azure::VirtualMachineImageManagement::VirtualMachineDiskManagementService.new.get_virtual_machine_disk("disk-name") %>
+
+    <li class="">delete_virtual_machine_disk(disk_name)</li>
+    <%#= Azure::VirtualMachineImageManagement::VirtualMachineDiskManagementService.new.delete_virtual_machine_disk("disk_name") %>
+  </ul>
+</div>
+
+<div class="service" id="vnet">
+  <h4>Azure::VirtualNetworkManagementService.new</h4>
+  <ul class="methods">
+    <li class="success">list_virtual_networks</li>
+    <%#= Azure::VirtualNetworkManagementService.new.list_virtual_networks %>
+
+    <li class="success">set_network_configuration("vnet_name", "affinity_group_name", address_space[], options{})</li>
+    <%#= Azure::VirtualNetworkManagementService.new.set_network_configuration("vnet_name", "affinity_group_name", address_space[], options{}) %>
+
+    <li class="">set_network_configuration(xml_file)</li>
+    <%#= Azure::VirtualNetworkManagementService.new.set_network_configuration(xml_file) %>
+  </ul>
+</div>
